@@ -27,34 +27,37 @@ export default {
     };
   },
   computed: {
-    padding() {
-      return +this.stroke
+    strokeWidth() {
+      return +this.stroke;
+    },
+    dX() {
+      return Math.abs(this.fromX - this.toX)
     },
     width() {
-      return Math.abs(this.fromX - this.toX);
+      return this.dX + this.strokeWidth;
     },
     height() {
-      return this.stroke;
+      return this.strokeWidth;
     },
     viewBox() {
       return `0 0 ${this.width} ${this.height}`;
     },
     startingPoint() {
       return {
-        x: this.fromX < this.toX ? 0 : this.width,
-        y: 0,
+        x: this.strokeWidth / 2,
+        y: this.strokeWidth / 2,
       };
     },
     endingPoint() {
       return {
-        x: this.fromX < this.toX ? this.width : 0,
-        y: 0,
+        x: this.dX + this.strokeWidth / 2,
+        y: this.strokeWidth/2,
       };
     },
     style() {
       return {
-        left: `${this.startingPoint.x}px`,
-        top: `${-(this.startingPoint.y) + (+this.Y)}px`,
+        left: `${this.fromX -this.strokeWidth / 2}px`,
+        top: `${this.Y -this.strokeWidth / 2}px`,
         position: "absolute",
         zIndex: this.$props["z-index"],
       };

@@ -4,7 +4,7 @@
       :color="color"
       :stroke="stroke"
       :z-index="100"
-      :X="toX"
+      :X="fromX"
       :fromY="fromY"
       :toY="toY"
     />
@@ -12,7 +12,7 @@
       :color="color"
       :stroke="stroke"
       :z-index="100"
-      :Y="toY - fromY"
+      :Y="toY"
       :fromX="fromX"
       :toX="toX"
     />
@@ -69,6 +69,6 @@ export default {
 <style>
 .connector {
   position: absolute;
-  border: 1px solid red;
+  outline: 1px solid red;
 }
 </style>

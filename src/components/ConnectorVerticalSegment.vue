@@ -13,7 +13,7 @@
       :x2="endingPoint.x"
       :y2="endingPoint.y"
       :stroke="color"
-      :stroke-width="stroke"
+      :stroke-width="strokeWidth"
       stroke-linecap="round"
     />
   </svg>
@@ -23,40 +23,42 @@ export default {
   name: "ConnectorVerticalSegment",
   props: ["X", "fromY", "toY", "stroke", "color", "z-index"],
   data() {
-    return {
-    }
+    return {};
   },
   computed: {
-    padding() {
-      return +this.stroke
+    strokeWidth() {
+      return +this.stroke;
+    },
+    dY() {
+      return Math.abs(this.fromY - this.toY);
     },
     width() {
-      return +this.stroke * 2;
+      return this.strokeWidth;
     },
     height() {
-      return Math.abs(this.fromY - this.toY);
+      return this.dY + this.strokeWidth;
     },
     viewBox() {
       return `0 0 ${this.width} ${this.height}`;
     },
     startingPoint() {
       return {
-        x: 0,
-        y: this.fromY < this.toY ? 0 : this.height,
+        x: this.strokeWidth / 2,
+        y: this.strokeWidth / 2,
       };
     },
     endingPoint() {
       return {
-        x: 0,
-        y: this.fromY < this.toY ? this.height : 0,
+        x: this.strokeWidth / 2,
+        y: this.dY + this.strokeWidth/2,
       };
     },
     style() {
       return {
-        left: `${this.startingPoint.x}px`,
-        top: `${this.startingPoint.y}px`,
-        position: 'absolute',
-        zIndex: this.$props['z-index']
+        left: `${this.X - this.strokeWidth / 2}px`,
+        top: `${this.fromY -this.strokeWidth / 2}px`,
+        position: "absolute",
+        zIndex: this.$props["z-index"],
       };
     },
   },
